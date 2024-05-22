@@ -1,0 +1,48 @@
+# Central Side Configuration
+#
+# The side on which the PS/2 mouse is connected MUST be the central side.
+#
+# By default zmk configures the LEFT side as the central side. But most people
+# want to connect their pointing devices to the RIGHT side.
+#
+# So, you need to define that the central side is the one to which the
+# pointing device is connected to.
+
+if SHIELD_TPS42_RIGHT
+
+config ZMK_KEYBOARD_NAME
+    default "TPS42"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+endif
+
+# Options that should be enabled on both sides
+if SHIELD_TPS42_LEFT || SHIELD_TPS42_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+if ZMK_DISPLAY
+
+config SPI
+	default y
+
+config LS0XX
+	default y
+
+endif # ZMK_DISPLAY
+
+if LVGL
+
+config LV_Z_BITS_PER_PIXEL
+    default 1
+
+choice LV_COLOR_DEPTH
+    default LV_COLOR_DEPTH_1
+endchoice
+
+endif # LVGL
+
+endif
